@@ -1,3 +1,8 @@
+<h1 [ngStyle]="{
+  'color':getColor(turn),
+ 'text-align':'center',
+  'font-family':'Helvetica'
+}">Player {{turn}} Turn</h1>
 <div class="game">
   <div class="house green">
       <div class="box">
@@ -128,7 +133,7 @@
     'border':'none',
     'padding':'1.5px'
   }">
-<div [ngStyle]="{
+<div [ngClass]="{'animatePulse' : turn == pin.ownerID}" [ngStyle]="{
   'background-color':getColor(pin.ownerID),
   'mix-blend-mode': 'multiply'
 }" class="pin"></div>
@@ -140,11 +145,7 @@
   'justify-content':'center',
   'padding':'auto'
  }">
-<h1 [ngStyle]="{
-  'color':getColor(turn),
- 'text-align':'center',
-  'font-family':'Helvetica'
-}">Player {{turn}} Turn</h1>
+
 <button [disabled] = "!canPlay" (click)="RollDice()" [ngStyle]="{
 'margin-left':'12px'
  }">Roll Dice</button>
