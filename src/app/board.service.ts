@@ -228,8 +228,9 @@ export class BoardService {
       this.turn = ((this.turn) % 4) + 1;
     }else{
       this.canPlay = false
-      if(homePieces!=4)
+      if(homePieces!=4){
       //alert("Click to piece to move")
+      }
       this.processMove(this.DieResult);
 
     }
