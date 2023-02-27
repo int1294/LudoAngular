@@ -1,6 +1,10 @@
 h1 {
   font-family: monospace;
   text-align: center;
+  margin: auto;
+  max-width: 250px;
+  min-width: 250px;
+  min-height: 70px;
 }
 
 #cube .front {
@@ -44,7 +48,10 @@ h1 {
   position: relative;
   margin: 0 auto 40px;
   border: 1px solid #FFF;
-
+  -webkit-transform:scale(0.5);
+  -moz-transform:scale(0.5);
+  -ms-transform:scale(0.5);
+  transform:scale(0.5);
   perspective: 1000px;
   perspective-origin: 50% 100%;
 }

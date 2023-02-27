@@ -1,8 +1,9 @@
 <h1 [ngStyle]="{
-  'color':getColor(turn),
+
+  'color':getColor(turn()),
  'text-align':'center',
   'font-family':'Monospace'
-}">Player {{turn}} Turn</h1>
+}">Player {{turn()}} Turn</h1>
 <div [ngStyle]="{
   'display' : 'flex'
 }">
@@ -132,12 +133,12 @@
   <div *ngFor = "let pin of GameBoard.pins" (click)= " CalculateStep(pin)" class="cells" [ngStyle]="{
     'top': (pin.y * 6.66).toString() + '%',
     'left': (pin.x * 6.66).toString() + '%',
-    'pointer-events': (turn==pin.ownerID)?'auto':'none',
-    'cursor': (turn==pin.ownerID)?'pointer':'default',
+    'pointer-events': (turn()==pin.ownerID)?'auto':'none',
+    'cursor': (turn()==pin.ownerID)?'pointer':'default',
     'border':'none',
     'padding':'1.5px'
   }">
-<div [ngClass]="{'animatePulse' : turn == pin.ownerID}" [ngStyle]="{
+<div [ngClass]="{'animatePulse' : turn() == pin.ownerID}" [ngStyle]="{
   'background-color':getColor(pin.ownerID),
   'mix-blend-mode': 'multiply'
 }" class="pin"></div>
@@ -145,7 +146,7 @@
 
 </div>
   <div class="diceArea">
-    <app-dice-ui (newItemEvent)="ProcessInput($event)" [canPlay] =canPlay />
+    <app-dice-ui (newItemEvent)="ProcessInput($event)" [canPlay] =canPlay() />
   </div>
 </div>
 
