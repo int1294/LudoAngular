@@ -233,7 +233,7 @@ export class BoardComponent {
     this.DieResult = min + Math.floor(Math.random() * (max - min + 1));
     alert("Player" + this.turn + " rolled " + this.DieResult)
     this.CalculateTurn();
-
+    this.winCheck();
   }
 
    getColor(i:number) {

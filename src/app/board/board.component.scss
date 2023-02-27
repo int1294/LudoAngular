@@ -75,6 +75,9 @@
   border-top: 20px solid #fff176;
   border-left: 20px solid #66bb6a;
   border-right: 20px solid #29b6f6;
+  background-image: url(https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjc0Mzg0N2JkNDExYTAyMjk4NTQ1MmEyMTk4OTI5ZWI4YTUxZDY2ZiZjdD1n/3og0IFrHkIglEOg8Ba/giphy.gif);
+  background-repeat: no-repeat;
+  background-size: 60px;
 }
 .cells {
   position: absolute;
@@ -136,7 +139,7 @@
 }
 
 button {
-  background-color: rgb(82, 186, 179);
+  background-color: #4285F4;
   border-radius: 6px;
   border: none;
   color: rgb(255, 255, 255);
@@ -144,6 +147,8 @@ button {
   text-transform: uppercase;
   width: 200px;
   cursor: pointer;
+  font-family: 'Courier';
+  animation: pulse-blue 2s infinite;
 }
 
 button:disabled {
@@ -155,6 +160,9 @@ button:disabled {
   text-transform: uppercase;
   width: 200px;
   cursor: none;
+  font-family: 'Courier';
+  animation: none;
+
 }
 
 @keyframes pulse-black {
@@ -172,4 +180,37 @@ button:disabled {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
+}
+
+@keyframes pulse-blue {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(52, 172, 224, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(52, 172, 224, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(52, 172, 224, 0);
+  }
+}
+
+
+@keyframes backgroundColorPalette {
+	0% {
+		background: #66bb6a;
+	}
+	33% {
+		background: #fff176;
+	}
+	66% {
+		background: #29b6f6;
+	}
+	100% {
+		background: #e53935;
+	}
 }

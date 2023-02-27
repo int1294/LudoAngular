@@ -1,7 +1,7 @@
 <h1 [ngStyle]="{
   'color':getColor(turn),
  'text-align':'center',
-  'font-family':'Helvetica'
+  'font-family':'Monospace'
 }">Player {{turn}} Turn</h1>
 <div class="game">
   <div class="house green">
@@ -130,6 +130,7 @@
     'top': (pin.y * 6.66).toString() + '%',
     'left': (pin.x * 6.66).toString() + '%',
     'pointer-events': (turn==pin.ownerID)?'auto':'none',
+    'cursor': (turn==pin.ownerID)?'pointer':'default',
     'border':'none',
     'padding':'1.5px'
   }">
