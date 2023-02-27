@@ -253,12 +253,12 @@ export class BoardComponent {
 
   GameBoard: Board = {
     pins: [
-      {id:1,ix:2,iy:2,x:2,y:2,ownerID:1,isPlaying:true,direction:"right"},
+      {id:1,ix:2,iy:2,x:2,y:2,ownerID:1,isPlaying:false,direction:"right"},
       {id:2,ix:2,iy:3,x:2,y:3,ownerID:1,isPlaying:false,direction:"right"},
       {id:3,ix:3,iy:2,x:3,y:2,ownerID:1,isPlaying:false,direction:"right"},
       {id:4,ix:3,iy:3,x:3,y:3,ownerID:1,isPlaying:false,direction:"right"},
 
-      {id:5,ix:11,iy:2,x:11,y:2,ownerID:2,isPlaying:true,direction:"down"},
+      {id:5,ix:11,iy:2,x:11,y:2,ownerID:2,isPlaying:false,direction:"down"},
       {id:6,ix:11,iy:3,x:11,y:3,ownerID:2,isPlaying:false,direction:"down"},
       {id:7,ix:12,iy:2,x:12,y:2,ownerID:2,isPlaying:false,direction:"down"},
       {id:8,ix:12,iy:3,x:12,y:3,ownerID:2,isPlaying:false,direction:"down"},
