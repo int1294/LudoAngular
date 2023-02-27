@@ -24,10 +24,12 @@ interface Board {
 })
 export class BoardComponent {
 
-  canPlay:Boolean = true;
-  DieResult:number = 0;
+  canPlay:boolean = true;
+  DieResult:number = 1;
   turn:number = 1;
   winvar = [0,0,0,0]
+
+
 
    getBasePositon(onwer:number){
     switch(onwer){
@@ -227,10 +229,9 @@ export class BoardComponent {
 
   }
 
-  RollDice() {
-    let min = 1;
-    let max = 6;
-    this.DieResult = min + Math.floor(Math.random() * (max - min + 1));
+  ProcessInput(diceResult:any) {
+
+    this.DieResult = diceResult
     alert("Player" + this.turn + " rolled " + this.DieResult)
     this.CalculateTurn();
     this.winCheck();
