@@ -9,6 +9,7 @@
     "test": "ng test"
   },
   "private": true,
+  "author": "Goutham Kancherla",
   "dependencies": {
     "@angular/animations": "^15.1.0",
     "@angular/common": "^15.1.0",

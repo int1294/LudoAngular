@@ -50,79 +50,69 @@ export class BoardComponent {
 
   move(p:Pin){
 
-
-
     if(p.isPlaying){
 
+      //Constraint for center overflow
       if(p.x == 7 && p.y == 7) {
         p.isPlaying = false
         return;
       }
 
-      console.log(p.x,p.y)
-      if(Math.floor(p.x)==5 && Math.floor(p.y) ==6){
-        p.x = 6; p.y = 5;
-        p.direction = 'up'
-        return;
+      console.log(p.x,p.y) //For Debug Purpose
+
+      //directionConstraints for board turn movement
+      let directionConstraints = [
+        {x:6,y:0,direction:'right'},
+        {x:14,y:6,direction:'down'},
+        {x:8,y:0,direction:'down'},
+        {x:14,y:8,direction:'left'},
+        {x:8,y:14,direction:'left'},
+        {x:6,y:14,direction:'up'},
+        {x:0,y:8,direction:'up'},
+        {x:0,y:6,direction:'right'},
+      ]
+
+      let ownerConstraints = [
+        {x:0,y:7,direction:'right',ownerID : 1},
+        {x:7,y:0,direction:'down',ownerID : 2},
+        {x:14,y:7,direction:'left',ownerID : 3},
+        {x:7,y:14,direction:'up',ownerID : 4},
+      ]
+
+      let teleportConstraints = [
+        {x:5,y:6,x1:6,y1:5,direction:'up'},
+        {x:8,y:5,x1:9,y1:6,direction:'right'},
+        {x:6,y:9,x1:5,y1:8,direction:'left'},
+        {x:9,y:8,x1:8,y1:9,direction:'down'},
+      ]
+
+      //Parse Direction
+      for( let c of directionConstraints){
+
+        if(Math.floor(p.x)==c.x && Math.floor(p.y) ==c.y){
+          p.direction = c.direction;
+          break;
+        }
       }
 
-      if(Math.floor(p.x)==6 && Math.floor(p.y) ==0){
-        p.direction = 'right'
-      }
-      if(Math.floor(p.x)==14 && Math.floor(p.y) ==6){
-        p.direction = 'down'
-      }
-      if(Math.floor(p.x)==8 && Math.floor(p.y) ==0){
-        p.direction = 'down'
-      }
-      if(Math.floor(p.x)==14 && Math.floor(p.y) ==8){
-        p.direction = 'left'
-      }
-      if(Math.floor(p.x)==8 && Math.floor(p.y) ==14){
-        p.direction = 'left'
-      }
-      if(Math.floor(p.x)==6 && Math.floor(p.y) ==14){
-        p.direction = 'up'
-      }
-      if(Math.floor(p.x)==0 && Math.floor(p.y) ==8){
-        p.direction = 'up'
-      }
-      if(Math.floor(p.x)==0 && Math.floor(p.y) ==6){
-        p.direction = 'right'
-      }
-      if(Math.floor(p.x)==8 && Math.floor(p.y) ==5){
-        p.x = 9; p.y = 6;
-        p.direction = 'right'
-        return;
+      //Parse Teleport
+      for( let c of teleportConstraints){
+        if(Math.floor(p.x)==c.x && Math.floor(p.y) ==c.y){
+          p.direction = c.direction;
+          p.x = c.x1; p.y = c.y1;
+          return; //Movement is already done here, no need to move ahead for switch
+        }
       }
 
-      if(Math.floor(p.x)==6 && Math.floor(p.y) ==9){
-        p.x = 5; p.y = 8;
-        p.direction = 'left'
-        return;
+       //Owner based Constraint parser
+      for( let c of ownerConstraints){
+        if(Math.floor(p.x)==c.x && Math.floor(p.y) ==c.y && p.ownerID == c.ownerID){
+          p.direction = c.direction;
+          break;
+        }
       }
 
-
-      if(Math.floor(p.x)==9 && Math.floor(p.y) ==8){
-        p.x = 8; p.y = 9;
-        p.direction = 'down'
-        return;
-      }
-
-      if(Math.floor(p.x)==7 && Math.floor(p.y) ==14 && p.ownerID == 4){
-        p.direction = 'up'
-      }
-      if(Math.floor(p.x)==0 && Math.floor(p.y) ==7 && p.ownerID == 1){
-        p.direction = 'right'
-      }
-      if(Math.floor(p.x)==14 && Math.floor(p.y) ==7 && p.ownerID == 3){
-        p.direction = 'left'
-      }
-
-      if(Math.floor(p.x)==7 && Math.floor(p.y) ==0 && p.ownerID == 2){
-        p.direction = 'down'
-      }
-
+      //Movement Parser
       switch (p.direction) {
         case 'left':
           p.x-=1
@@ -137,9 +127,6 @@ export class BoardComponent {
           p.y+=1
           break;
       }
-
-
-
 
     }
   }
@@ -163,7 +150,6 @@ export class BoardComponent {
         return;
       }
     }
-
 
     for(let p of this.GameBoard.pins){
       if(Math.floor(p.x) == Math.floor(pin.x) && Math.floor(p.y) == Math.floor(pin.y) && p.id!=pin.id && p.ownerID!=pin.ownerID){
@@ -193,9 +179,10 @@ export class BoardComponent {
 
   winCheck(){
     for (let i =0;i<4;i++){
-      if (this.winvar[i] == 4 )
+      if (this.winvar[i] == 4 ){
         alert("Player" + (i+1) +" wins")
         location.reload();
+      }
     }
   }
 
@@ -252,13 +239,13 @@ export class BoardComponent {
    getColor(i:number) {
     switch(i){
       case 1:
-        return '#66bb6a'
+        return '#66bb6a' //green
       case 2:
-        return '#fff176'
+        return '#fff176' //yellow
       case 3:
-        return '#29b6f6'
+        return '#29b6f6' //blue
       case 4:
-        return '#e53935'
+        return '#e53935' //yellow
       default:
         return 'black'
     }
@@ -266,12 +253,12 @@ export class BoardComponent {
 
   GameBoard: Board = {
     pins: [
-      {id:1,ix:2,iy:2,x:2,y:2,ownerID:1,isPlaying:false,direction:"right"},
+      {id:1,ix:2,iy:2,x:2,y:2,ownerID:1,isPlaying:true,direction:"right"},
       {id:2,ix:2,iy:3,x:2,y:3,ownerID:1,isPlaying:false,direction:"right"},
       {id:3,ix:3,iy:2,x:3,y:2,ownerID:1,isPlaying:false,direction:"right"},
       {id:4,ix:3,iy:3,x:3,y:3,ownerID:1,isPlaying:false,direction:"right"},
 
-      {id:5,ix:11,iy:2,x:11,y:2,ownerID:2,isPlaying:false,direction:"down"},
+      {id:5,ix:11,iy:2,x:11,y:2,ownerID:2,isPlaying:true,direction:"down"},
       {id:6,ix:11,iy:3,x:11,y:3,ownerID:2,isPlaying:false,direction:"down"},
       {id:7,ix:12,iy:2,x:12,y:2,ownerID:2,isPlaying:false,direction:"down"},
       {id:8,ix:12,iy:3,x:12,y:3,ownerID:2,isPlaying:false,direction:"down"},
@@ -285,7 +272,6 @@ export class BoardComponent {
       {id:14,ix:3,iy:11,x:3,y:11,ownerID:4,isPlaying:false,direction:"up"},
       {id:15,ix:2,iy:12,x:2,y:12,ownerID:4,isPlaying:false,direction:"up"},
       {id:16,ix:3,iy:12,x:3,y:12,ownerID:4,isPlaying:false,direction:"up"},
-
 
     ]
   };

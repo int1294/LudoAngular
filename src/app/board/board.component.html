@@ -124,11 +124,13 @@
   <div *ngFor = "let pin of GameBoard.pins" (click)= " CalculateStep(pin)" class="cells" [ngStyle]="{
     'top': (pin.y * 6.66).toString() + '%',
     'left': (pin.x * 6.66).toString() + '%',
+    'pointer-events': (turn==pin.ownerID)?'auto':'none',
     'border':'none',
     'padding':'1.5px'
   }">
 <div [ngStyle]="{
-  'background-color':getColor(pin.ownerID)
+  'background-color':getColor(pin.ownerID),
+  'mix-blend-mode': 'multiply'
 }" class="pin"></div>
 </div>
 
