@@ -54,6 +54,11 @@ export class BoardComponent {
 
     if(p.isPlaying){
 
+      if(p.x == 7 && p.y == 7) {
+        p.isPlaying = false
+        return;
+      }
+
       console.log(p.x,p.y)
       if(Math.floor(p.x)==5 && Math.floor(p.y) ==6){
         p.x = 6; p.y = 5;
@@ -140,6 +145,26 @@ export class BoardComponent {
   }
 
   killCheck(pin:Pin){
+
+    let safeZones = [
+      {x:1,y:6},
+      {x:6,y:2},
+      {x:8,y:1},
+      {x:12,y:6},
+      {x:13,y:8},
+      {x:8,y:12},
+      {x:6,y:13},
+      {x:2,y:8},
+    ]
+
+    for(let c of safeZones){
+      if(Math.floor(pin.x) == c.x && Math.floor(pin.y) == c.y){
+        console.log(pin.id + " is in safe Zone!")
+        return;
+      }
+    }
+
+
     for(let p of this.GameBoard.pins){
       if(Math.floor(p.x) == Math.floor(pin.x) && Math.floor(p.y) == Math.floor(pin.y) && p.id!=pin.id && p.ownerID!=pin.ownerID){
         console.log("Player "+ pin.ownerID+"["+pin.id+"]" +" killed "+ "Player "+ p.ownerID+"["+p.id+"]"+"!")
@@ -170,6 +195,7 @@ export class BoardComponent {
     for (let i =0;i<4;i++){
       if (this.winvar[i] == 4 )
         alert("Player" + (i+1) +" wins")
+        location.reload();
     }
   }
 
