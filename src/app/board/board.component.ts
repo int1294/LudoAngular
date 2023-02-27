@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import {BoardService} from '../board.service';
 
-
-
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -10,18 +8,14 @@ import {BoardService} from '../board.service';
 })
 export class BoardComponent {
 
+  constructor(private service: BoardService){}
 
-
-  constructor(private service: BoardService){
-
-  }
   getColor(arg:number) {
     return this.service.getColor(arg)
   };
   turn() {
     return this.service.getTurn();
   }
-
   DieResult(){
     return this.service.GetDieResult();
   }

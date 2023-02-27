@@ -229,7 +229,7 @@ export class BoardService {
     }else{
       this.canPlay = false
       if(homePieces!=4)
-      alert("Click to piece to move")
+      //alert("Click to piece to move")
       this.processMove(this.DieResult);
 
     }
@@ -239,7 +239,7 @@ export class BoardService {
   ProcessInput(diceResult:any) {
 
     this.DieResult = diceResult
-    alert("Player" + this.turn + " rolled " + this.DieResult)
+    //alert("Player" + this.turn + " rolled " + this.DieResult)
     this.CalculateTurn();
     this.winCheck();
   }
