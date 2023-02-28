@@ -1,6 +1,12 @@
 <h1 [ngStyle]="{
-  'text-shadow': '0 0 0 0 rgba(0, 0, 0, 0.7)',
-  'color':getColor(turn()),
+  'padding':'0 30px 0 25px',
+  'border-bottom-right-radius': '105px 120px',
+  'border-bottom-left-radius': '105px 120px',
+  'width': '300px',
+  'margin':'auto',
+  'color':'white',
+  'padding-bottom': '10px',
+  'background-color':getColor(turn()),
  'text-align':'center',
   'font-family':'system-ui'
 }">Player {{turn()}} Turn</h1>
@@ -134,7 +140,7 @@
     'top': (pin.y * 6.66).toString() + '%',
     'left': (pin.x * 6.66).toString() + '%',
     'pointer-events': (turn()==pin.ownerID)?'auto':'none',
-    'cursor': (turn()==pin.ownerID)?'pointer':'default',
+    'cursor': (turn()==pin.ownerID && pin.isPlaying)?'pointer':'default',
     'border':'none',
     'padding':'1.5px',
     'display':'flex'

@@ -69,7 +69,7 @@ export class BoardService {
         return;
       }
 
-      console.log(p.x,p.y) //For Debug Purpose
+
 
       //directionConstraints for board turn movement
       let directionConstraints = [
@@ -139,6 +139,7 @@ export class BoardService {
           break;
       }
 
+      console.log(p.x,p.y) //For Debug Purpose
     }
   }
 

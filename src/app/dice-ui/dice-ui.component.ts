@@ -19,12 +19,14 @@ export class DiceUIComponent implements AfterViewInit  {
   ngAfterViewInit() {
 
   }
-isRolling: boolean = false;
+  audio = new Audio('../../assets/dice.mp3');
+  isRolling: boolean = false;
 
 onclick() {
   if(this.isRolling == true || !this.canPlay){
     return
   }
+  this.audio.play();
   this.isRolling = true;
   let min = 1;
   let max = 24;
