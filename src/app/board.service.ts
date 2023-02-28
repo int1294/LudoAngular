@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+
 
 interface Pin {
   direction:string,
@@ -163,6 +165,7 @@ export class BoardService {
     for(let p of this.GameBoard.pins){
       if(Math.floor(p.x) == Math.floor(pin.x) && Math.floor(p.y) == Math.floor(pin.y) && p.id!=pin.id && p.ownerID!=pin.ownerID){
         console.log("Player "+ pin.ownerID+"["+pin.id+"]" +" killed "+ "Player "+ p.ownerID+"["+p.id+"]"+"!")
+        this.toastr.info("Player "+ pin.ownerID +" 💀 "+ "Player "+ p.ownerID);
         p.x = p.ix;
         p.y = p.iy;
         p.isPlaying = false;
@@ -201,10 +204,15 @@ export class BoardService {
       return;
     }
     if(pin.ownerID == this.turn){
-      for (let i = 0; i < this.DieResult; i++) {
-        this.move(pin)
+      for (let i = 0; i < this.DieResult-1; i++) {
+        setTimeout(()=>{this.move(pin)},i*500) //SetTimeout for animating each step rather than just jumping to end location
       }
-      this.canPlay = true;
+
+      setTimeout(()=>{ //Final step needs to enable to canPlay after all the moves are completed so, exclude from loop and write seperately as function is different
+        this.move(pin);
+        this.canPlay = true;
+      },(this.DieResult-1)*500)
+
       this.turn = ((this.turn) % 4) + 1;
       this.killCheck(pin)
       if(pin.x == 7 && pin.y == 7){
@@ -262,28 +270,30 @@ export class BoardService {
 
   GameBoard: Board = {
     pins: [
-      {id:1,ix:2,iy:2,x:2,y:2,ownerID:1,isPlaying:false,direction:"right"},
-      {id:2,ix:2,iy:3,x:2,y:3,ownerID:1,isPlaying:false,direction:"right"},
-      {id:3,ix:3,iy:2,x:3,y:2,ownerID:1,isPlaying:false,direction:"right"},
-      {id:4,ix:3,iy:3,x:3,y:3,ownerID:1,isPlaying:false,direction:"right"},
+      {id:1,ix:1.8,iy:1.8,x:1.8,y:1.8,ownerID:1,isPlaying:false,direction:"right"},
+      {id:2,ix:1.8,iy:3.2,x:1.8,y:3.2,ownerID:1,isPlaying:false,direction:"right"},
+      {id:3,ix:3.2,iy:1.8,x:3.2,y:1.8,ownerID:1,isPlaying:false,direction:"right"},
+      {id:4,ix:3.2,iy:3.2,x:3.2,y:3.2,ownerID:1,isPlaying:false,direction:"right"},
 
-      {id:5,ix:11,iy:2,x:11,y:2,ownerID:2,isPlaying:false,direction:"down"},
-      {id:6,ix:11,iy:3,x:11,y:3,ownerID:2,isPlaying:false,direction:"down"},
-      {id:7,ix:12,iy:2,x:12,y:2,ownerID:2,isPlaying:false,direction:"down"},
-      {id:8,ix:12,iy:3,x:12,y:3,ownerID:2,isPlaying:false,direction:"down"},
+      {id:5,ix:10.8,iy:1.8,x:10.8,y:1.8,ownerID:2,isPlaying:false,direction:"down"},
+      {id:6,ix:10.8,iy:3.2,x:10.8,y:3.2,ownerID:2,isPlaying:false,direction:"down"},
+      {id:7,ix:11.8,iy:1.8,x:12.2,y:1.8,ownerID:2,isPlaying:false,direction:"down"},
+      {id:8,ix:11.8,iy:3.2,x:12.2,y:3.2,ownerID:2,isPlaying:false,direction:"down"},
 
-      {id:9,ix:11,iy:11,x:11,y:11,ownerID:3,isPlaying:false,direction:"left"},
-      {id:10,ix:11,iy:12,x:11,y:12,ownerID:3,isPlaying:false,direction:"left"},
-      {id:11,ix:12,iy:11,x:12,y:11,ownerID:3,isPlaying:false,direction:"left"},
-      {id:12,ix:12,iy:12,x:12,y:12,ownerID:3,isPlaying:false,direction:"left"},
+      {id:9,ix:10.8,iy:10.8,x:10.8,y:10.8,ownerID:3,isPlaying:false,direction:"left"},
+      {id:10,ix:10.8,iy:12.2,x:10.8,y:12.2,ownerID:3,isPlaying:false,direction:"left"},
+      {id:11,ix:12,iy:10.8,x:12.2,y:10.8,ownerID:3,isPlaying:false,direction:"left"},
+      {id:12,ix:12,iy:12.2,x:12.2,y:12.2,ownerID:3,isPlaying:false,direction:"left"},
 
-      {id:13,ix:2,iy:11,x:2,y:11,ownerID:4,isPlaying:false,direction:"up"},
-      {id:14,ix:3,iy:11,x:3,y:11,ownerID:4,isPlaying:false,direction:"up"},
-      {id:15,ix:2,iy:12,x:2,y:12,ownerID:4,isPlaying:false,direction:"up"},
-      {id:16,ix:3,iy:12,x:3,y:12,ownerID:4,isPlaying:false,direction:"up"},
+      {id:13,ix:1.8,iy:10.8,x:1.8,y:10.8,ownerID:4,isPlaying:false,direction:"up"},
+      {id:14,ix:3.2,iy:10.8,x:3.2,y:10.8,ownerID:4,isPlaying:false,direction:"up"},
+      {id:15,ix:1.8,iy:12,x:1.8,y:12.2,ownerID:4,isPlaying:false,direction:"up"},
+      {id:16,ix:3.2,iy:12,x:3.2,y:12.2,ownerID:4,isPlaying:false,direction:"up"},
 
     ]
   };
 
-  constructor() { }
+  constructor(private toastr: ToastrService) {
+    this.toastr.success('Service Injected');
+  }
 }

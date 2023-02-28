@@ -6,6 +6,7 @@
   box-sizing:border-box;
 }
 .game {
+  box-shadow: 0px 3px 15px rgb(0 0 0 / 20%);
   display: flex;
   flex-wrap: wrap;
   margin: 20px auto;
@@ -35,8 +36,10 @@
   width:40%;
   height:40%;
   padding:7%;
+  box-shadow: 0px 3px 15px rgb(0 0 0 / 20%);
 }
 .box {
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
   position: relative;
   width:100%;
   height:100%;
@@ -47,6 +50,7 @@
   position: absolute;
   width:25%;
   height:25%;
+  box-shadow: 0px 3px 15px rgb(0 0 0 / 20%);
 
 }
 .square-one {
@@ -85,7 +89,7 @@
   height: 6.66%;
   border-collapse: collapse;
   border: 1px solid #e5e5e569 ;
-  transition: top 2s ease 0s,left 2s ease 0s;
+  transition: top 0.5s ease 0s,left 0.5s ease 0s;
 }
 
 .safe {
@@ -160,17 +164,17 @@ button:disabled {
 @keyframes pulse-black {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    text-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
   }
 
   70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    transform: scale(1.2);
+    text-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
   }
 
   100% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    text-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
 }
 
@@ -214,3 +218,6 @@ margin-right:auto;
 margin-top:5%;
 }
 
+.fa-map-marker-alt::before{
+  text-shadow: 0 0 3px #000;
+}
