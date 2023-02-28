@@ -285,10 +285,10 @@ export class BoardService {
       {id:3,ix:3.2,iy:1.8,x:3.2,y:1.8,ownerID:1,isPlaying:false,direction:"right",heaven:false},
       {id:4,ix:3.2,iy:3.2,x:3.2,y:3.2,ownerID:1,isPlaying:false,direction:"right",heaven:false},
 
-      {id:5,ix:10.8,iy:1.8,x:7,y:1,ownerID:2,isPlaying:true,direction:"down",heaven:false},
-      {id:6,ix:10.8,iy:3.2,x:7,y:2,ownerID:2,isPlaying:true,direction:"down",heaven:false},
-      {id:7,ix:11.8,iy:1.8,x:7,y:1,ownerID:2,isPlaying:true,direction:"down",heaven:false},
-      {id:8,ix:11.8,iy:3.2,x:7,y:3,ownerID:2,isPlaying:true,direction:"down",heaven:false},
+      {id:5,ix:10.8,iy:1.8,x:10.8,y:1.8,ownerID:2,isPlaying:false,direction:"down",heaven:false},
+      {id:6,ix:10.8,iy:3.2,x:10.8,y:3.2,ownerID:2,isPlaying:false,direction:"down",heaven:false},
+      {id:7,ix:12.2,iy:1.8,x:12.2,y:1.8,ownerID:2,isPlaying:false,direction:"down",heaven:false},
+      {id:8,ix:12.2,iy:3.2,x:12.2,y:3.2,ownerID:2,isPlaying:false,direction:"down",heaven:false},
 
       {id:9,ix:10.8,iy:10.8,x:10.8,y:10.8,ownerID:3,isPlaying:false,direction:"left",heaven:false},
       {id:10,ix:10.8,iy:12.2,x:10.8,y:12.2,ownerID:3,isPlaying:false,direction:"left",heaven:false},
