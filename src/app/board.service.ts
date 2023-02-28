@@ -11,7 +11,7 @@ interface Pin {
   ownerID:number,
   isPlaying: boolean,
   id:number
-
+  heaven: boolean
 }
 interface Board {
 
@@ -63,9 +63,11 @@ export class BoardService {
 
     if(p.isPlaying){
 
+
       //Constraint for center overflow
       if(p.x == 7 && p.y == 7) {
-        p.isPlaying = false
+        p.heaven = true
+        this.winCheck()
         return;
       }
 
@@ -191,9 +193,12 @@ export class BoardService {
   }
 
   winCheck(){
+
     for (let i =0;i<4;i++){
       if (this.winvar[i] == 4 ){
-        alert("Player" + (i+1) +" wins")
+        console.log("Player" + (i+1) +" wins")
+        alert("Player " + (i+1) +" wins!!!!!!")
+        alert("Starting a new game....")
         location.reload();
       }
     }
@@ -201,7 +206,7 @@ export class BoardService {
 
   CalculateStep(pin:Pin){
 
-    if(!pin.isPlaying){
+    if(!pin.isPlaying || pin.heaven){
       return;
     }
     if(pin.ownerID == this.turn){
@@ -209,17 +214,21 @@ export class BoardService {
         setTimeout(()=>{this.move(pin)},i*500) //SetTimeout for animating each step rather than just jumping to end location
       }
 
-      setTimeout(()=>{ //Final step needs to enable to canPlay after all the moves are completed so, exclude from loop and write seperately as function is different
+      //Final step has different logic
+      setTimeout(()=>{ //Final step needs to enable canPlay and killCheck after all the moves are completed so, exclude from loop and write seperately as function is different
         this.move(pin);
         this.canPlay = true;
+        this.killCheck(pin);
+        this.turn = ((this.turn) % 4) + 1;
+      if(Math.floor(pin.x) == 7 && Math.floor(pin.y) == 7){
+        pin.heaven = true
+        console.log("The onwer id is",pin.ownerID)
+        this.winvar[pin.ownerID-1] = this.winvar[pin.ownerID-1] + 1
+        this.winCheck()
+      }
       },(this.DieResult-1)*500)
 
-      this.turn = ((this.turn) % 4) + 1;
-      this.killCheck(pin)
-      if(pin.x == 7 && pin.y == 7){
-        pin.isPlaying = false
-        this.winvar[pin.ownerID-1]++
-      }
+
 
     }
     this.winCheck()
@@ -271,25 +280,25 @@ export class BoardService {
 
   GameBoard: Board = {
     pins: [
-      {id:1,ix:1.8,iy:1.8,x:1.8,y:1.8,ownerID:1,isPlaying:false,direction:"right"},
-      {id:2,ix:1.8,iy:3.2,x:1.8,y:3.2,ownerID:1,isPlaying:false,direction:"right"},
-      {id:3,ix:3.2,iy:1.8,x:3.2,y:1.8,ownerID:1,isPlaying:false,direction:"right"},
-      {id:4,ix:3.2,iy:3.2,x:3.2,y:3.2,ownerID:1,isPlaying:false,direction:"right"},
+      {id:1,ix:1.8,iy:1.8,x:1.8,y:1.8,ownerID:1,isPlaying:false,direction:"right",heaven:false},
+      {id:2,ix:1.8,iy:3.2,x:1.8,y:3.2,ownerID:1,isPlaying:false,direction:"right",heaven:false},
+      {id:3,ix:3.2,iy:1.8,x:3.2,y:1.8,ownerID:1,isPlaying:false,direction:"right",heaven:false},
+      {id:4,ix:3.2,iy:3.2,x:3.2,y:3.2,ownerID:1,isPlaying:false,direction:"right",heaven:false},
 
-      {id:5,ix:10.8,iy:1.8,x:10.8,y:1.8,ownerID:2,isPlaying:false,direction:"down"},
-      {id:6,ix:10.8,iy:3.2,x:10.8,y:3.2,ownerID:2,isPlaying:false,direction:"down"},
-      {id:7,ix:11.8,iy:1.8,x:12.2,y:1.8,ownerID:2,isPlaying:false,direction:"down"},
-      {id:8,ix:11.8,iy:3.2,x:12.2,y:3.2,ownerID:2,isPlaying:false,direction:"down"},
+      {id:5,ix:10.8,iy:1.8,x:7,y:1,ownerID:2,isPlaying:true,direction:"down",heaven:false},
+      {id:6,ix:10.8,iy:3.2,x:7,y:2,ownerID:2,isPlaying:true,direction:"down",heaven:false},
+      {id:7,ix:11.8,iy:1.8,x:7,y:1,ownerID:2,isPlaying:true,direction:"down",heaven:false},
+      {id:8,ix:11.8,iy:3.2,x:7,y:3,ownerID:2,isPlaying:true,direction:"down",heaven:false},
 
-      {id:9,ix:10.8,iy:10.8,x:10.8,y:10.8,ownerID:3,isPlaying:false,direction:"left"},
-      {id:10,ix:10.8,iy:12.2,x:10.8,y:12.2,ownerID:3,isPlaying:false,direction:"left"},
-      {id:11,ix:12,iy:10.8,x:12.2,y:10.8,ownerID:3,isPlaying:false,direction:"left"},
-      {id:12,ix:12,iy:12.2,x:12.2,y:12.2,ownerID:3,isPlaying:false,direction:"left"},
+      {id:9,ix:10.8,iy:10.8,x:10.8,y:10.8,ownerID:3,isPlaying:false,direction:"left",heaven:false},
+      {id:10,ix:10.8,iy:12.2,x:10.8,y:12.2,ownerID:3,isPlaying:false,direction:"left",heaven:false},
+      {id:11,ix:12,iy:10.8,x:12.2,y:10.8,ownerID:3,isPlaying:false,direction:"left",heaven:false},
+      {id:12,ix:12,iy:12.2,x:12.2,y:12.2,ownerID:3,isPlaying:false,direction:"left",heaven:false},
 
-      {id:13,ix:1.8,iy:10.8,x:1.8,y:10.8,ownerID:4,isPlaying:false,direction:"up"},
-      {id:14,ix:3.2,iy:10.8,x:3.2,y:10.8,ownerID:4,isPlaying:false,direction:"up"},
-      {id:15,ix:1.8,iy:12,x:1.8,y:12.2,ownerID:4,isPlaying:false,direction:"up"},
-      {id:16,ix:3.2,iy:12,x:3.2,y:12.2,ownerID:4,isPlaying:false,direction:"up"},
+      {id:13,ix:1.8,iy:10.8,x:1.8,y:10.8,ownerID:4,isPlaying:false,direction:"up",heaven:false},
+      {id:14,ix:3.2,iy:10.8,x:3.2,y:10.8,ownerID:4,isPlaying:false,direction:"up",heaven:false},
+      {id:15,ix:1.8,iy:12,x:1.8,y:12.2,ownerID:4,isPlaying:false,direction:"up",heaven:false},
+      {id:16,ix:3.2,iy:12,x:3.2,y:12.2,ownerID:4,isPlaying:false,direction:"up",heaven:false},
 
     ]
   };

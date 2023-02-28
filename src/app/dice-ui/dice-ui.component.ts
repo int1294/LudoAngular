@@ -1,4 +1,5 @@
 import { Output, EventEmitter, Component, Input ,AfterViewInit, ElementRef, ViewChild, Renderer2} from '@angular/core';
+declare let Mousetrap: any ;
 
 @Component({
   selector: 'app-dice-ui',
@@ -17,7 +18,10 @@ export class DiceUIComponent implements AfterViewInit  {
   }
 
   ngAfterViewInit() {
+    Mousetrap.bind('ctrl+shift+k', () => {
 
+     // this.newItemEvent.emit(6);
+  });
   }
   audio = new Audio('../../assets/dice.mp3');
   isRolling: boolean = false;

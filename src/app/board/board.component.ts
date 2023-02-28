@@ -8,7 +8,10 @@ import {BoardService} from '../board.service';
 })
 export class BoardComponent {
 
-  constructor(private service: BoardService){}
+  constructor(private service: BoardService){
+
+
+  }
 
   getColor(arg:number) {
     return this.service.getColor(arg)
@@ -19,6 +22,8 @@ export class BoardComponent {
   DieResult(){
     return this.service.GetDieResult();
   }
+
+
   ProcessInput(event:number){
     this.service.ProcessInput(event);
   }
