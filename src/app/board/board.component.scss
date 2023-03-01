@@ -6,6 +6,7 @@
   box-sizing:border-box;
 }
 .game {
+  min-width: 500px;
   box-shadow: 0px 3px 15px rgb(0 0 0 / 20%);
   display: flex;
   flex-wrap: wrap;
