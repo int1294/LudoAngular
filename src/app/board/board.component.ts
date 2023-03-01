@@ -32,6 +32,8 @@ export class BoardComponent {
     return this.service.getCanPlay();
   }
   CalculateStep(pin:any) {
-    this.service.CalculateStep(pin);
+    if(!this.canPlay()){
+      this.service.CalculateStep(pin);
+    }
   }
 }

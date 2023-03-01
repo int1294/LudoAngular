@@ -209,6 +209,8 @@ export class BoardService {
     if(!pin.isPlaying || pin.heaven){
       return;
     }
+
+
     if(pin.ownerID == this.turn){
       for (let i = 0; i < this.DieResult-1; i++) {
         setTimeout(()=>{this.move(pin)},i*500) //SetTimeout for animating each step rather than just jumping to end location
